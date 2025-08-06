@@ -1,6 +1,6 @@
-import { FileDropzone } from '@/app/dashboard/_components/file-dropzone';
-import { UploadHeader } from '@/app/dashboard/_components/upload-header';
-import { UploadProgress } from '@/app/dashboard/_components/upload-progress';
+import { FileDropzone } from "@/app/dashboard/_components/file-dropzone";
+import { UploadHeader } from "@/app/dashboard/_components/upload-header";
+import { UploadProgress } from "@/app/dashboard/_components/upload-progress";
 
 export default function DashboardPage() {
   return (
@@ -13,4 +13,3 @@ export default function DashboardPage() {
     </main>
   );
 }
-
