@@ -26,7 +26,7 @@ export default function RootLayout({
         <TRPCReactProvider>
           <ThemeProvider>
             <TopNavBar />
-            <main className="p-6 lg:p-24">{children}</main>
+            <main className="p-6">{children}</main>
           </ThemeProvider>
         </TRPCReactProvider>
       </body>
