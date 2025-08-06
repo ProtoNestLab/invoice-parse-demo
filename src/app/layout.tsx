@@ -3,6 +3,7 @@ import "@/styles/globals.css";
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import { TopNavBar } from "@/app/_components/top-nav-bar";
+import { ThemeProvider } from "@/app/theme-provider";
 import { TRPCReactProvider } from "@/trpc/react";
 
 export const metadata: Metadata = {
@@ -23,8 +24,10 @@ export default function RootLayout({
     <html className={`${geist.variable}`} lang="en">
       <body className="flex min-h-dvh flex-col">
         <TRPCReactProvider>
-          <TopNavBar />
-          <main className="p-6 lg:p-24">{children}</main>
+          <ThemeProvider>
+            <TopNavBar />
+            <main className="p-6 lg:p-24">{children}</main>
+          </ThemeProvider>
         </TRPCReactProvider>
       </body>
     </html>
