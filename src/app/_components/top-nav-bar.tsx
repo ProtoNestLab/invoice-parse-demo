@@ -1,10 +1,25 @@
 "use client";
 
-import { Menu, X } from "lucide-react";
+import CloseIcon from "@mui/icons-material/Close";
+import MenuIcon from "@mui/icons-material/Menu";
+import {
+  AppBar,
+  Avatar,
+  Box,
+  Button,
+  Container,
+  Drawer,
+  IconButton,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Toolbar,
+  Typography,
+} from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { cn } from "@/lib/utils";
 
 type NavLink = {
   href: string;
@@ -23,98 +38,140 @@ const navLinks: NavLink[] = [
 export function TopNavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  return (
-    <header className="flex w-full items-center justify-center border-gray-200 border-b px-10 py-2">
-      <div className="flex w-full max-w-7xl items-center justify-between font-sans">
-        <Link className="flex items-center" href="/">
-          <div className="relative size-6">
-            <Image
-              alt="Fintegra Logo"
-              className="object-contain"
-              fill
-              src="/images/top-nav/brand-logo.svg"
-            />
-          </div>
-          <span className="ml-2 font-bold text-lg">Fintegra</span>
-        </Link>
-        <div className="flex items-center">
-          <nav className="hidden h-10 items-center md:flex">
-            {navLinks.map((link) => (
-              <Link
-                className="ml-9 font-medium text-sm"
-                href={link.href}
-                key={link.href}
-              >
-                {link.label}
-              </Link>
-            ))}
-          </nav>
-          <div className="relative ml-8 hidden size-8 md:block">
-            <Image
-              alt="User Avatar"
-              className="rounded-full object-cover"
-              fill
-              src="/images/top-nav/user-avatar.svg"
-            />
-          </div>
-          <button
-            aria-label="Toggle menu"
-            className="ml-4 md:hidden"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            type="button"
-          >
-            <Menu className="size-6" />
-          </button>
-        </div>
-      </div>
-      {/* Mobile Menu */}
-      <div
-        className={cn(
-          "fixed inset-0 z-50 bg-black/60 transition-opacity duration-300 md:hidden",
-          isMenuOpen ? "opacity-100" : "pointer-events-none opacity-0"
-        )}
-        onClick={() => setIsMenuOpen(false)}
-      />
-      <div
-        className={cn(
-          "fixed top-0 right-0 z-50 flex h-full w-64 transform flex-col bg-white p-6 shadow-lg transition-transform duration-300 md:hidden",
-          isMenuOpen ? "translate-x-0" : "translate-x-full"
-        )}
-      >
-        <div className="flex items-center justify-between">
-          <h2 className="font-bold text-lg">Menu</h2>
-          <button
-            aria-label="Close menu"
-            onClick={() => setIsMenuOpen(false)}
-            type="button"
-          >
-            <X className="size-6" />
-          </button>
-        </div>
-        <nav className="mt-8 flex flex-grow flex-col space-y-4">
-          {navLinks.map((link) => (
-            <Link
-              className="font-medium text-base"
+  const toggleDrawer =
+    (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
+      if (
+        event.type === "keydown" &&
+        ((event as React.KeyboardEvent).key === "Tab" ||
+          (event as React.KeyboardEvent).key === "Shift")
+      ) {
+        return;
+      }
+      setIsMenuOpen(open);
+    };
+
+  const drawerContent = (
+    <Box
+      role="presentation"
+      sx={{
+        width: 250,
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      <Box sx={{ display: "flex", justifyContent: "flex-end", p: 1 }}>
+        <IconButton onClick={toggleDrawer(false)}>
+          <CloseIcon />
+        </IconButton>
+      </Box>
+      <List sx={{ p: 1 }}>
+        {navLinks.map((link) => (
+          <ListItem disablePadding key={link.href}>
+            <ListItemButton
+              component={Link}
               href={link.href}
-              key={link.href}
-              onClick={() => setIsMenuOpen(false)}
+              onClick={toggleDrawer(false)}
             >
-              {link.label}
+              <ListItemText primary={link.label} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+      <Box
+        sx={{ marginTop: "auto", p: 2, display: "flex", alignItems: "center" }}
+      >
+        <Avatar
+          alt="User Avatar"
+          src="/images/top-nav/user-avatar.svg"
+          sx={{ width: 40, height: 40 }}
+        />
+        <Typography sx={{ ml: 2, fontWeight: "medium" }}>William</Typography>
+      </Box>
+    </Box>
+  );
+
+  return (
+    <>
+      <AppBar
+        color="default"
+        elevation={0}
+        position="static"
+        sx={{
+          backgroundColor: "white",
+          borderBottom: "1px solid",
+          borderColor: "divider",
+        }}
+      >
+        <Container maxWidth="lg">
+          <Toolbar disableGutters>
+            <Link href="/" passHref>
+              <Box sx={{ display: "flex", alignItems: "center" }}>
+                <Image
+                  alt="Fintegra Logo"
+                  height={24}
+                  src="/images/top-nav/brand-logo.svg"
+                  width={24}
+                />
+                <Typography
+                  component="div"
+                  sx={{
+                    ml: 1,
+                    fontWeight: "bold",
+                    color: "black",
+                    textDecoration: "none",
+                  }}
+                  variant="h6"
+                >
+                  Fintegra
+                </Typography>
+              </Box>
             </Link>
-          ))}
-        </nav>
-        <div className="mt-auto flex items-center">
-          <div className="relative size-8">
-            <Image
-              alt="User Avatar"
-              className="rounded-full object-cover"
-              fill
-              src="/images/top-nav/user-avatar.svg"
-            />
-          </div>
-          <span className="ml-3 font-medium">William</span>
-        </div>
-      </div>
-    </header>
+            <Box sx={{ flexGrow: 1 }} />
+            <Box sx={{ display: { xs: "none", md: "flex" } }}>
+              {navLinks.map((link) => (
+                <Button
+                  component={Link}
+                  href={link.href}
+                  key={link.href}
+                  sx={{
+                    color: "text.primary",
+                    mx: 1,
+                    textTransform: "none",
+                    fontWeight: "medium",
+                  }}
+                >
+                  {link.label}
+                </Button>
+              ))}
+            </Box>
+            <Box sx={{ flexGrow: { xs: 0, md: 0.05 } }} />
+            <Box sx={{ display: { xs: "none", md: "flex" } }}>
+              <Avatar alt="User Avatar" src="/images/top-nav/user-avatar.svg" />
+            </Box>
+            <Box sx={{ display: { xs: "flex", md: "none" } }}>
+              <IconButton
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                aria-label="account of current user"
+                color="inherit"
+                onClick={toggleDrawer(true)}
+                size="large"
+              >
+                <MenuIcon />
+              </IconButton>
+            </Box>
+          </Toolbar>
+        </Container>
+      </AppBar>
+      <Drawer
+        anchor="right"
+        onClose={toggleDrawer(false)}
+        open={isMenuOpen}
+        sx={{ display: { xs: "block", md: "none" } }}
+      >
+        {drawerContent}
+      </Drawer>
+    </>
   );
 }
