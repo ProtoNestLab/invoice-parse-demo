@@ -11,6 +11,7 @@ export const env = createEnv({
     NODE_ENV: z
       .enum(["development", "test", "production"])
       .default("development"),
+    STACK_SECRET_SERVER_KEY: z.string(),
   },
 
   /**
@@ -20,6 +21,8 @@ export const env = createEnv({
    */
   client: {
     // NEXT_PUBLIC_CLIENTVAR: z.string(),
+    NEXT_PUBLIC_STACK_PROJECT_ID: z.string(),
+    NEXT_PUBLIC_STACK_PUBLISHABLE_CLIENT_KEY: z.string(),
   },
 
   /**
@@ -29,6 +32,10 @@ export const env = createEnv({
   runtimeEnv: {
     DATABASE_URL: process.env.DATABASE_URL,
     NODE_ENV: process.env.NODE_ENV,
+    STACK_SECRET_SERVER_KEY: process.env.STACK_SECRET_SERVER_KEY,
+    NEXT_PUBLIC_STACK_PROJECT_ID: process.env.NEXT_PUBLIC_STACK_PROJECT_ID,
+    NEXT_PUBLIC_STACK_PUBLISHABLE_CLIENT_KEY:
+      process.env.NEXT_PUBLIC_STACK_PUBLISHABLE_CLIENT_KEY,
     // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
   },
   /**
