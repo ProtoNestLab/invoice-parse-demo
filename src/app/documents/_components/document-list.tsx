@@ -39,7 +39,7 @@ const documents = [
   },
 ];
 
-const DocumentList = () => {
+export const DocumentList = () => {
   return (
     <Box
       sx={{
@@ -93,5 +93,3 @@ const DocumentList = () => {
     </Box>
   );
 };
-
-export default DocumentList;

@@ -28,6 +28,7 @@ type NavLink = {
 
 const navLinks: NavLink[] = [
   { href: "/dashboard", label: "Dashboard" },
+  { href: "/vouchers", label: "Vouchers" },
   { href: "/documents", label: "Documents" },
   { href: "/tasks", label: "Tasks" },
   { href: "/clients", label: "Clients" },

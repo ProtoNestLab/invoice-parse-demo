@@ -66,7 +66,7 @@ const formSchema = z
 
 type FormSchema = z.infer<typeof formSchema>;
 
-const DocumentDetails = () => {
+export const DocumentDetails = () => {
   const {
     control,
     handleSubmit,
@@ -348,5 +348,3 @@ const DocumentDetails = () => {
     </LocalizationProvider>
   );
 };
-
-export default DocumentDetails;

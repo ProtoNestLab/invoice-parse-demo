@@ -1,8 +1,8 @@
 "use client";
 
 import { Box } from "@mui/material";
-import DocumentDetails from "@/app/documents/_components/document-details";
-import DocumentList from "@/app/documents/_components/document-list";
+import { DocumentDetails } from "@/app/documents/_components/document-details";
+import { DocumentList } from "@/app/documents/_components/document-list";
 
 const DocumentsPage = () => {
   return (
